@@ -2,27 +2,18 @@ import React, { useState, useEffect } from 'react';
 import Post from './components/Post';
 import { db } from './firebase';
 import './App.css';
+import BasicModal from './components/BasicModal';
 
 function App() {
-  const [posts, setPosts] = useState([
-    // {
-    //   username: 'gharker',
-    //   caption: " I'm available today!",
-    //   imageURL: reactIcon,
-    // },
-    // {
-    //   username: 'gharker',
-    //   caption: " I'm available today!",
-    //   imageURL: reactIcon,
-    // },
-  ]);
+  const [posts, setPosts] = useState([]);
 
   // UseEffect: runs a piece of code based on a specific condition
 
   useEffect(() => {
     // this is where the code runs
     db.collection('posts').onSnapshot((snapshot) => {
-      setPosts(snapshot.docs.map((doc) => doc.data()));
+      setPosts(snapshot.docs.map((doc) => ({ id: doc.id, post: doc.data() })));
+      console.log(posts);
     });
   }, []);
 
@@ -55,9 +46,10 @@ function App() {
           n
         </h1>
       </div>
-
-      {posts.map((post) => (
+      <BasicModal />
+      {posts.map(({ id, post }) => (
         <Post
+          key={id}
           username={post.username}
           caption={post.caption}
           imageURL={post.imageURL}

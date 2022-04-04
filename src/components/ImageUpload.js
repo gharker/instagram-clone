@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import { storage, db } from '../firebase';
 import firebase from 'firebase/compat/app';
 import { getDownloadURL, ref, uploadBytesResumable } from '@firebase/storage';
+import './imageUpload.css';
 
 function ImageUpload({ username }) {
   const [image, setImage] = useState(null);
@@ -53,16 +54,28 @@ function ImageUpload({ username }) {
     );
   };
   return (
-    <div>
-      <progress value={progress} max="100" />
-      <input
-        type="text"
-        placeholder="Enter a caption ..."
-        onChange={(event) => setCaption(event.target.value)}
-        value={caption}
-      />
-      <input type="file" onChange={handleChange} />
-      <Button onClick={handleUpload}>Upload</Button>
+    <div className="imageUpload__form">
+      <h3>Add a Post</h3>
+
+      <div className="caption">
+        <input
+          type="text"
+          placeholder="Enter a caption ..."
+          onChange={(event) => setCaption(event.target.value)}
+          value={caption}
+        />
+      </div>
+      <div className="chooseFile">
+        <input type="file" onChange={handleChange} />
+        <Button onClick={handleUpload}>Upload</Button>
+      </div>
+      <div className="progressBar">
+        <progress
+          className="imageUpload__progress"
+          value={progress}
+          max="100"
+        />
+      </div>
     </div>
   );
 }

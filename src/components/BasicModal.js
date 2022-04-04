@@ -7,6 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import { auth } from '../firebase';
 import './basicModal.css';
+import ImageUpload from './ImageUpload';
 
 const style = {
   position: 'absolute',
@@ -75,6 +76,13 @@ export default function BasicModal() {
 
   return (
     <div>
+      <div>
+        {user?.displayName ? (
+          <ImageUpload username={user.displayName} />
+        ) : (
+          <h3>Sorry you need to login to upload</h3>
+        )}
+      </div>
       {user ? (
         <Button onClick={() => auth.signOut()}>Logout</Button>
       ) : (

@@ -3,6 +3,7 @@ import Post from './components/Post';
 import { db } from './firebase';
 import './App.css';
 import BasicModal from './components/BasicModal';
+import ImageUpload from './components/ImageUpload';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <div className="App">
+      {/* <ImageUpload /> */}
       <div className="app_header">
         <h1 className="app__headerImage">
           f

@@ -3,9 +3,14 @@ import Post from './components/Post';
 import { db } from './firebase';
 import './App.css';
 import BasicModal from './components/BasicModal';
+import { useStateValue } from './components/currentUserContext/StateProvider';
+// import { user } from './components/BasicModal';
+// console.log(user);
 
 function App() {
   const [posts, setPosts] = useState([]);
+
+  const [{ user }, dispatch] = useStateValue();
 
   // UseEffect: runs a piece of code based on a specific condition
 
@@ -29,6 +34,8 @@ function App() {
         {posts.map(({ id, post }) => (
           <Post
             key={id}
+            postId={id}
+            user={user}
             username={post.username}
             caption={post.caption}
             imageURL={post.imageURL}

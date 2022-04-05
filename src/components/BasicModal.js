@@ -8,6 +8,7 @@ import Input from '@mui/material/Input';
 import { auth } from '../firebase';
 import './basicModal.css';
 import ImageUpload from './ImageUpload';
+import { useStateValue } from './currentUserContext/StateProvider';
 
 const style = {
   position: 'absolute',
@@ -22,6 +23,8 @@ const style = {
 };
 
 export default function BasicModal() {
+  const [state, dispatch] = useStateValue();
+
   const [open, setOpen] = React.useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -61,8 +64,13 @@ export default function BasicModal() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         // user has logged in ...
-        console.log(authUser);
+        // console.log(authUser);
         setUser(authUser);
+        console.log(user);
+        dispatch({
+          type: 'ADD_CURRENT_USER',
+          user: user,
+        });
       } else {
         // user has logged out ...
         setUser(null);
